@@ -1,0 +1,111 @@
+<html>
+<head>
+<title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-analytics.js"></script>
+<script>
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAyzUkStGAVyApjjfMJ4Hxj6epZ66AhE5o",
+      authDomain: "form-b6aa4.firebaseapp.com",
+      databaseURL: "https://form-b6aa4.firebaseio.com",
+      projectId: "form-b6aa4",
+      storageBucket: "form-b6aa4.appspot.com",
+      messagingSenderId: "491110400587",
+      appId: "1:491110400587:web:c1f349955ed7c5488883ce",
+      measurementId: "G-B8YJ2WPY51"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+   firebase.analytics();
+  
+  const auth=firebase.auth()
+  function signUp(){
+          
+          var email = document.getElementById("email");
+          var password = document.getElementById("password");
+          
+          const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
+          promise.catch(e => alert(e.message));
+          
+          alert("Signed Up");
+      }
+      
+      
+      
+      function signIn(){
+          
+          var email = document.getElementById("email");
+          var password = document.getElementById("password");
+          
+          const promise = auth.signInWithEmailAndPassword(email.value, password.value);
+          promise.catch(e => alert(e.message));
+          
+          alert("Signed In  " + email.value);
+          window.location.href = "https://videoapprtc.herokuapp.com/";
+          
+          
+      }
+      
+      
+      function signOut(){
+          
+          auth.signOut();
+          alert("Signed Out");
+          
+      }
+      
+      
+      
+      auth.onAuthStateChanged(function(user){
+          
+          if(user){
+              
+              var email = user.email;
+              alert("Active User " + email);
+              
+              //Take user to a different or home page
+  
+              //is signed in
+              
+          }else{
+              
+              alert("No Active User");
+              //no user is signed in
+          }
+          
+          
+          
+      });
+      
+  
+  </script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<body>
+    <div class="loginbox">
+    <img src="avatar.png" class="avatar">
+        <h1>Login to Continue</h1>
+        <form>
+            <p>Username</p>
+            <input type="email" name="" placeholder="Enter email" id="email">
+            <p>Password</p>
+            <input type="password" name="" placeholder="Enter Password" id="password">
+
+            <!-- <input type="submit" name="" value="Login" id="signIn"> -->
+            <button onclick="signIn()" type="button">Login</button>
+            <a onclick="signUp()">Signup</a>
+            <a onclick="signOut()">Signout</a>
+        </form>
+        
+    </div>
+
+<!-- <script src="form.js"></script> -->
+</body>
+</head>
+</html>
